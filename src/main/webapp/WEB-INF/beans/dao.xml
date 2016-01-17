@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns:beans="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <beans:import resource="dataSource.xml"/>
+
+    <beans:bean class="com.test.rest.dao.ProductDaoImpl" id="productDao">
+        <beans:property name="sessionFactory" ref="sessionFactory" />
+    </beans:bean>
+    <beans:bean class="com.test.rest.dao.CategoryDaoImpl" id="categoryDao">
+        <beans:property name="sessionFactory" ref="sessionFactory" />
+    </beans:bean>
+    <beans:bean class="com.test.rest.dao.ImagesDaoImpl" id="imagesDao">
+        <beans:property name="sessionFactory" ref="sessionFactory" />
+    </beans:bean>
+</beans:beans>
