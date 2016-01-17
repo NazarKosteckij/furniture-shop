@@ -31,7 +31,11 @@ public class HomeController {
 	public String home(HttpServletRequest request, HttpServletResponse response, Locale locale, Model model) {
 	 	return "home";
 	}
-	
+	@RequestMapping(value = "/catalog", method = RequestMethod.GET)
+	public String catalog(HttpServletRequest request, HttpServletResponse response, Locale locale, Model model) {
+	 	return "catalog";
+	}
+
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login()  {
 		return "login";

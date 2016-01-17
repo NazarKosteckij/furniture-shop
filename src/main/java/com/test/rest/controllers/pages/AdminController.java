@@ -3,6 +3,7 @@ package com.test.rest.controllers.pages;
 import com.test.rest.dao.CategoryDao;
 import com.test.rest.dao.ImagesDao;
 import com.test.rest.dao.ProductDao;
+import com.test.rest.models.Category;
 import com.test.rest.models.Image;
 import com.test.rest.models.Product;
 import com.test.rest.utils.MD5;
@@ -26,9 +27,6 @@ import java.io.IOException;
 public class AdminController {
 
     @Autowired
-    ResourceLoader resourceLoader;
-
-    @Autowired
     CategoryDao categoryDao;
 
     @Autowired
@@ -36,6 +34,12 @@ public class AdminController {
 
     @Autowired
     ImagesDao imagesDao;
+
+    @RequestMapping("/")
+    public String get(){
+        return "admin";
+    }
+
     private static  final  String path = "C:\\Users\\Назар\\Documents\\workfolder-intelij\\shop\\src\\main\\resources\\savedImages\\";
 
     @RequestMapping("/categories")
@@ -45,6 +49,7 @@ public class AdminController {
         return modelAndView;
     }
 
+
     @RequestMapping("/products")
     public ModelAndView products(){
         ModelAndView modelAndView = new ModelAndView("products");
@@ -52,10 +57,21 @@ public class AdminController {
         return modelAndView;
     }
 
+    @RequestMapping("/categories/add")
+    public ModelAndView addCategory(){
+        ModelAndView modelAndView = new ModelAndView("addCategory");
+        return modelAndView;
+    }
 
-    @RequestMapping("/")
-    public String get(){
-        return "admin";
+    @RequestMapping(value = "/categories/add", method = RequestMethod.POST)
+    public ModelAndView doAddCategory(@RequestParam(value = "name") String name){
+        Category category = new Category();
+
+        category.setName(name);
+        categoryDao.create(category);
+
+        ModelAndView modelAndView = new ModelAndView("addCategory");
+        return modelAndView;
     }
 
     @RequestMapping("/products/add")
@@ -66,7 +82,7 @@ public class AdminController {
     }
 
     @RequestMapping(value= "/products/add", method = RequestMethod.POST)
-    public String doAddProduct(@RequestParam(value = "categoryId") Integer categoryId,
+    public ModelAndView doAddProduct(@RequestParam(value = "categoryId") Integer categoryId,
                                @RequestParam(value = "name") String name,
                                @RequestParam(value = "description") String description,
                                @RequestParam(value = "file") CommonsMultipartFile avatar,
@@ -82,7 +98,8 @@ public class AdminController {
 
         saveAllImages(files, product);
 
-        return "admin";
+        ModelAndView modelAndView = new ModelAndView("addProduct");
+        return modelAndView;
     }
 
     private void saveAllImages(CommonsMultipartFile[] files, Product product){
@@ -136,6 +153,7 @@ public class AdminController {
             }
         }
     }
+
     private String getUniqueResourceIdentity(CommonsMultipartFile file, Product product) {
         return  MD5.getMD5(file.getOriginalFilename() + product.getName() + product.getId() + file.getSize());
     }
