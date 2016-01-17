@@ -18,9 +18,11 @@
     <title>Admin Panel</title>
 </head>
 <body>
-    <jsp:include page="adminNavigationBar.jsp" />
-    <div class="container">
-
-    </div>
+        <jsp:include page="adminNavigationBar.jsp" />
+        <main>
+            <div class="container">
+                <jsp:include page="adminButtons.jsp"/>
+            </div>
+        </main>
 </body>
 </html>

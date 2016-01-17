@@ -18,48 +18,68 @@
     <title>Admin Panel | Add Product</title>
 </head>
 <body>
-    <jsp:include page="adminNavigationBar.jsp" />
-    <div class="container">
-        <div id="admin-action">
-            <jsp:include page="adminButtons.jsp"/>
-        </div>
-        <div class="row">
-        <form action="/admin/products/add" method="post">
-            <div class="row">
-                <div class="input-field col s12 m6">
-                    <input id="name" name="name" type="text" class="validate">
-                    <label for="name">Назва</label>
-                </div>
-                <div class="input-field col s12 m6">
-                    <select name="categoryId">
-                        <option value="" disabled selected>Оберіть Категорію</option>
-                        <c:forEach var="category" items="${categories}">
-                            <option  value="<c:out value="${category.id}"/>"><c:out value="${category.name}"/></option>
-                        </c:forEach>
-                    </select>
-                </div>
-            </div>
+         <jsp:include page="adminNavigationBar.jsp" />
+         <main>
+         <div class="container">
 
-            <div class="row">
-                <form class="col s12">
-                    <div class="row">
-                        <div class="input-field col s6">
-                            <i class="material-icons prefix">mode_edit</i>
-                            <textarea id="icon_prefix2" name="description" class="materialize-textarea"></textarea>
-                            <label for="icon_prefix2">Опис</label>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="row">
-                <div class="input-field">
-                    <input type="submit" value="Додати"/>
-                </div>
-            </div>
-        </form>
+                 <div id="admin-action">
+                     <%--<jsp:include page="adminButtons.jsp"/>--%>
+                 </div>
+                 <div class="row">
+                     <form action="/admin/products/add" method="post" enctype="multipart/form-data">
+                         <div class="row">
+                             <div class="input-field col s12 m6">
+                                 <input id="name" name="name" type="text" class="validate">
+                                 <label for="name">Назва</label>
+                             </div>
+                             <div class="input-field col s12 m6">
+                                 <select name="categoryId">
+                                     <option value="" disabled selected>Оберіть Категорію</option>
+                                     <c:forEach var="category" items="${categories}">
+                                         <option  value="<c:out value="${category.id}"/>"><c:out value="${category.name}"/></option>
+                                     </c:forEach>
+                                 </select>
+                             </div>
+                         </div>
+                         <div class="row">
+                             <div class="row">
+                                 <div class="file-field input-field col s12 m6">
+                                     <div class="btn">
+                                         <span>Додати</span>
+                                         <input id="main-image" type="file" name="file" size="20" />
+                                     </div>
+                                     <div class="file-path-wrapper">
+                                         <input class="file-path validate" placeholder="Оберіть головне зображення" type="text">
+                                     </div>
+                                 </div>
+                             </div>
+                         </div>
+                         <div class="row">
+                             <div class="row">
+                                 <div class="input-field col s12">
+                                     <i class="material-icons prefix">mode_edit</i>
+                                     <textarea id="icon_prefix2" name="description" class="materialize-textarea"></textarea>
+                                     <label for="icon_prefix2">Опис</label>
+                                 </div>
+                             </div>
+                         </div>
+                         <div class="file-field input-field">
+                             <div class="btn">
+                                 <span>Додаткові зображення</span>
+                                 <input name="files" type="file" multiple>
+                             </div>
+                             <div class="file-path-wrapper">
+                                 <input class="file-path validate" type="text" placeholder="Оберіть ще декілька додаткових зображень">
+                             </div>
+                         </div>
+                         <div class="input-field">
+                             <input class="btn" type="submit" value="Додати"/>
+                         </div>
+                     </form>
 
-        </div>
-    </div>
+                 </div>
+         </div>
+    </main>
 </body>
 <script>
     $(document).ready(function() {

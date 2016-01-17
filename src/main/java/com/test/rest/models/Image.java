@@ -14,9 +14,8 @@ public class Image implements BaseModel {
     @Id
     private Integer id;
 
-    @Column(name="content")
-    @Lob
-    private Blob content;
+    @Column(name="uri")
+    private String uri;
 
     @Column
     private String title;
@@ -32,14 +31,6 @@ public class Image implements BaseModel {
         this.title = title;
     }
 
-    public Integer getCategory_id() {
-        return product_id;
-    }
-
-    public void setCategory_id(Integer category_id) {
-        this.product_id = category_id;
-    }
-
     @Override
     public Integer getId() {
         return id;
@@ -49,11 +40,19 @@ public class Image implements BaseModel {
         this.id = id;
     }
 
-    public Blob getContent() {
-        return content;
+    public String getUri() {
+        return uri;
     }
 
-    public void setContent(Blob content) {
-        this.content = content;
+    public void setUri(String uri) {
+        this.uri = uri;
+    }
+
+    public Integer getProduct_id() {
+        return product_id;
+    }
+
+    public void setProduct_id(Integer product_id) {
+        this.product_id = product_id;
     }
 }

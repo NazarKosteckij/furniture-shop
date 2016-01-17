@@ -17,16 +17,16 @@
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <title>Admin Panel</title>
 </head>
-<body>
     <jsp:include page="adminNavigationBar.jsp" />
+    <main>
     <div class="container">
         <jsp:include page="adminButtons.jsp"/>
         <table>
             <thead>
                 <tr>
                     <td>№</td>
-                    <td>Iм'я</td>
-                    <td>Кількість товарів</td>
+                    <td>Назва</td>
+                    <td>Опис</td>
                     <td>Дія</td>
                 </tr>
             </thead>
@@ -36,11 +36,12 @@
                         <td><c:out value="${product.id}"/></td>
                         <td><c:out value="${product.name}"/></td>
                         <td>${product.description}</td>
-                        <td> <a class="button"   id="<c:out value="${product.id}"/>" >Edit</a></td>
+                        <td> <a class="button"   id="<c:out value="${product.id}"/>" >Видалити</a></td>
                     </tr>
                 </c:forEach>
             </tbody>
         </table>
     </div>
+</main>
 </body>
 </html>

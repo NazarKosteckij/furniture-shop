@@ -19,28 +19,30 @@
 </head>
 <body>
     <jsp:include page="adminNavigationBar.jsp" />
-    <div class="container">
-        <jsp:include page="adminButtons.jsp"/>
-        <table>
-            <thead>
-                <tr>
-                    <td>№</td>
-                    <td>Iм'я</td>
-                    <td>Кількість товарів</td>
-                    <td>Дія</td>
-                </tr>
-            </thead>
-            <tbody>
-                <c:forEach var="category" items="${categories}">
+    <main>
+        <div class="container">
+            <jsp:include page="adminButtons.jsp"/>
+            <table>
+                <thead>
                     <tr>
-                        <td><c:out value="${category.id}"/></td>
-                        <td><c:out value="${category.name}"/></td>
-                        <td>${category.products.size()}</td>
-                        <td> <a class="button"   id="<c:out value="${category.id}"/>" >Edit</a></td>
+                        <td>№</td>
+                        <td>Iм'я</td>
+                        <td>Кількість товарів</td>
+                        <td>Дія</td>
                     </tr>
-                </c:forEach>
-            </tbody>
-        </table>
-    </div>
+                </thead>
+                <tbody>
+                    <c:forEach var="category" items="${categories}">
+                        <tr>
+                            <td><c:out value="${category.id}"/></td>
+                            <td><c:out value="${category.name}"/></td>
+                            <td>${category.products.size()}</td>
+                            <td> <a class="button"   id="<c:out value="${category.id}"/>" >Edit</a></td>
+                        </tr>
+                    </c:forEach>
+                </tbody>
+            </table>
+        </div>
+    </main>
 </body>
 </html>

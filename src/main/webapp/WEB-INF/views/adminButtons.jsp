@@ -8,6 +8,12 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <div class="input-field">
-    <a class="btn" href="<c:url value="/admin/categories/add"/>">Додати категорію</a>
-    <a class="btn" href="<c:url value="/admin/products/add"/>">Додати товар</a>
+    <div class="row">
+        <div class="col s12 m6" style="margin-bottom: 10px">
+            <a class=" btn-large" href="<c:url value="/admin/categories/add"/>">Додати категорію</a>
+        </div>
+        <div class="col s12 m6">
+            <a class=" btn-large" href="<c:url value="/admin/products/add"/>">Додати товар</a>
+        </div>
+    </div>
 </div>

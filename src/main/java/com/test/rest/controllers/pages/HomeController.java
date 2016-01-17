@@ -29,8 +29,7 @@ public class HomeController {
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(HttpServletRequest request, HttpServletResponse response, Locale locale, Model model) {
-		productDao.create(new Product());
-		return "home";
+	 	return "home";
 	}
 	
 	@RequestMapping(value = "/login", method = RequestMethod.GET)

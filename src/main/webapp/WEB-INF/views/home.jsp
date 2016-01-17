@@ -14,9 +14,10 @@
 <body>
 <jsp:include page="navigationBar.jsp" />
 <main> 
-<div class="container">
-<h1>Welcome</h1>
-
+	<div class="container">
+		<h1>Welcome</h1>
+	</div>
+</main>
 </div>
 
 </main>

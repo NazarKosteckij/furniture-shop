@@ -1,14 +1,22 @@
 package com.test.rest.controllers.pages;
 
 import com.test.rest.dao.CategoryDao;
+import com.test.rest.dao.ImagesDao;
 import com.test.rest.dao.ProductDao;
+import com.test.rest.models.Image;
 import com.test.rest.models.Product;
+import com.test.rest.utils.MD5;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.io.File;
+import java.io.IOException;
 
 /**
  * Created by Nazar on 16.01.2016.
@@ -18,11 +26,17 @@ import org.springframework.web.servlet.ModelAndView;
 public class AdminController {
 
     @Autowired
+    ResourceLoader resourceLoader;
+
+    @Autowired
     CategoryDao categoryDao;
 
     @Autowired
     ProductDao productsDao;
 
+    @Autowired
+    ImagesDao imagesDao;
+    private static  final  String path = "C:\\Users\\Назар\\Documents\\workfolder-intelij\\shop\\src\\main\\resources\\savedImages\\";
 
     @RequestMapping("/categories")
     public ModelAndView categories(){
@@ -54,14 +68,75 @@ public class AdminController {
     @RequestMapping(value= "/products/add", method = RequestMethod.POST)
     public String doAddProduct(@RequestParam(value = "categoryId") Integer categoryId,
                                @RequestParam(value = "name") String name,
-                               @RequestParam(value = "description") String description){
-        System.out.print(description + "\n" + name + "\n" + categoryId);
-        Product product = new Product();
+                               @RequestParam(value = "description") String description,
+                               @RequestParam(value = "file") CommonsMultipartFile avatar,
+                               @RequestParam(value = "files", required = false) CommonsMultipartFile[] files){
 
+        Product product = new Product();
         product.setName(name);
         product.setCategory_id(categoryId);
         product.setDescription(description);
+        saveAvatar(avatar, product);
+
+        productsDao.create(product);
+
+        saveAllImages(files, product);
 
         return "admin";
+    }
+
+    private void saveAllImages(CommonsMultipartFile[] files, Product product){
+
+        if (files != null && files.length > 0 && product.getId() > 0) {
+            for (CommonsMultipartFile aFile : files){
+
+                System.out.println("Saving file: " + aFile.getOriginalFilename());
+
+
+                if (!aFile.getOriginalFilename().equals("")) {
+                    try {
+                        String fileUri = aFile.getOriginalFilename() + product.getName() + product.getId() + aFile.getSize();
+                        aFile.transferTo(new File(path + fileUri));
+
+                        Image image = new Image();
+                        image.setTitle(aFile.getOriginalFilename());
+                        image.setProduct_id(product.getId());
+                        image.setUri(MD5.getMD5(aFile.getOriginalFilename()));
+
+                        imagesDao.create(image);
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+    }
+
+    private void saveAvatar(CommonsMultipartFile avatar, Product product){
+
+        System.out.println("Saving file: " + avatar.getOriginalFilename());
+
+        if (!avatar.getOriginalFilename().equals("")) {
+            try {
+                String fileUri = getUniqueResourceIdentity(avatar, product);
+
+                avatar.transferTo(new File(path + fileUri));
+
+                Image image = new Image();
+                image.setTitle(avatar.getOriginalFilename());
+                image.setProduct_id(product.getId());
+                image.setUri(MD5.getMD5(avatar.getOriginalFilename()));
+
+                imagesDao.create(image);
+                product.setImage(image);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    private String getUniqueResourceIdentity(CommonsMultipartFile file, Product product) {
+        return  MD5.getMD5(file.getOriginalFilename() + product.getName() + product.getId() + file.getSize());
     }
 }
