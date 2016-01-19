@@ -8,15 +8,17 @@ import com.test.rest.models.Image;
 import com.test.rest.models.Product;
 import com.test.rest.utils.MD5;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ResourceLoader;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 
 /**
@@ -35,12 +37,12 @@ public class AdminController {
     @Autowired
     ImagesDao imagesDao;
 
-    @RequestMapping("/")
+    @RequestMapping("")
     public String get(){
         return "admin";
     }
 
-    private static  final  String path = "C:\\Users\\Назар\\Documents\\workfolder-intelij\\shop\\src\\main\\resources\\savedImages\\";
+    private static  final  String path = "/home/nazar/Public/img/";
 
     @RequestMapping("/categories")
     public ModelAndView categories(){
@@ -102,6 +104,10 @@ public class AdminController {
         return modelAndView;
     }
 
+    private boolean validateImage(CommonsMultipartFile file){
+        return !file.getOriginalFilename().equals("");
+    }
+
     private void saveAllImages(CommonsMultipartFile[] files, Product product){
 
         if (files != null && files.length > 0 && product.getId() > 0) {
@@ -110,9 +116,10 @@ public class AdminController {
                 System.out.println("Saving file: " + aFile.getOriginalFilename());
 
 
-                if (!aFile.getOriginalFilename().equals("")) {
+                if (validateImage(aFile)) {
                     try {
-                        String fileUri = aFile.getOriginalFilename() + product.getName() + product.getId() + aFile.getSize();
+                        String fileUri = getUniqueResourceIdentity(aFile, product);
+
                         aFile.transferTo(new File(path + fileUri));
 
                         Image image = new Image();
@@ -134,7 +141,7 @@ public class AdminController {
 
         System.out.println("Saving file: " + avatar.getOriginalFilename());
 
-        if (!avatar.getOriginalFilename().equals("")) {
+        if (validateImage(avatar)) {
             try {
                 String fileUri = getUniqueResourceIdentity(avatar, product);
 
@@ -155,6 +162,9 @@ public class AdminController {
     }
 
     private String getUniqueResourceIdentity(CommonsMultipartFile file, Product product) {
-        return  MD5.getMD5(file.getOriginalFilename() + product.getName() + product.getId() + file.getSize());
+        return  MD5.getMD5(file.getOriginalFilename() +
+                product.getName() +
+                product.getId() +
+                file.getSize()) + ".jpg";
     }
 }
