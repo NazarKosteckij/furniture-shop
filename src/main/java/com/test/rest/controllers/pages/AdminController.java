@@ -42,7 +42,7 @@ public class AdminController {
         return "admin";
     }
 
-    private static  final  String path = "/home/nazar/Public/img/";
+    private static  final  String path = "F:\\shop\\src\\main\\resources\\savedImages";
 
     @RequestMapping("/categories")
     public ModelAndView categories(){
@@ -125,7 +125,7 @@ public class AdminController {
                         Image image = new Image();
                         image.setTitle(aFile.getOriginalFilename());
                         image.setProduct_id(product.getId());
-                        image.setUri(MD5.getMD5(aFile.getOriginalFilename()));
+                        image.setUri(fileUri);
 
                         imagesDao.create(image);
 
@@ -137,8 +137,7 @@ public class AdminController {
         }
     }
 
-    private void saveAvatar(CommonsMultipartFile avatar, Product product){
-
+    private void saveImage(CommonsMultipartFile avatar, Product product, boolean isAvatar){
         System.out.println("Saving file: " + avatar.getOriginalFilename());
 
         if (validateImage(avatar)) {
@@ -149,16 +148,24 @@ public class AdminController {
 
                 Image image = new Image();
                 image.setTitle(avatar.getOriginalFilename());
-                image.setProduct_id(product.getId());
-                image.setUri(MD5.getMD5(avatar.getOriginalFilename()));
+                image.setUri(fileUri);
+                if(!isAvatar) {
+                    image.setProduct_id(product.getId());
+                }
 
                 imagesDao.create(image);
-                product.setImage(image);
 
+                if(isAvatar) {
+                    product.setImage(image);
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+    }
+
+    private void saveAvatar(CommonsMultipartFile avatar, Product product){
+        saveImage(avatar, product, true);
     }
 
     private String getUniqueResourceIdentity(CommonsMultipartFile file, Product product) {
