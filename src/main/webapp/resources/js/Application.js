@@ -6,23 +6,30 @@ $(document).ready(function(){
     var app = angular.module('catalog', []);
 
     app.controller('CatalogController', function($http, $scope){
-        this.products = null;
-        $http.get("/api/products/").then(function(response) {
-            $scope.myData = response.data.records;
-            console.log(response.data)
+        this.categories = null;
+        this.categoryId = 0;
+        that = this;
+
+        this.isCurrentCategory = function(id){
+            return this.categoryId === id;
+        }
+
+        this.setCategory = function(id){
+            this.categoryId = id;
+            for (category in this.categories){
+                if(category.id === id){
+                    this.products = category.products;
+                }
+            }
+
+            console.log("set category id " + id);
+        };
+
+        $http.get("/api/categories/").then(function(response) {
+            that.categories = response.data;
+            that.categoryId = that.categories[0].id;
         });
-    });
-
-    app.controller('TabController', function(){
-        this.tab = 1;
-
-        this.setTab = function(tab){
-            this.tab=tab;
-        };
-
-        this.isSet = function(selectedTab){
-            return this.tab === selectedTab;
-        };
 
     });
+
 })();

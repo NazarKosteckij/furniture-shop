@@ -8,8 +8,8 @@
         <li> <a href="<c:url value="/catalog" />">Каталог</a>  </li>
       </ul>
       <ul id="nav-admin" class="right">
-        <li> <a href="<c:url value="/admin/categories" />">Категорії</a> </li>
-        <li> <a href="<c:url value="/admin/products" />">Продукти</a>  </li>
+        <li> <a href="<c:url value="/admin/categories/" />">Категорії</a> </li>
+        <li> <a href="<c:url value="/admin/products/" />">Товари</a>  </li>
       </ul>
     </div>
   </nav>

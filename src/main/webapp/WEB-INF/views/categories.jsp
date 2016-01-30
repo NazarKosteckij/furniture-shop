@@ -37,7 +37,9 @@
                             <td><c:out value="${category.id}"/></td>
                             <td><c:out value="${category.name}"/></td>
                             <td>${category.products.size()}</td>
-                            <td> <a class="button"   id="<c:out value="${category.id}"/>" >Edit</a></td>
+                            <td> <a  class="btn-floating waves-effect waves-light red tooltipped" data-position="left" data-delay="50" data-tooltip="Видалити"  id="delete" ><i class="material-icons small">delete</i></a>
+                                <a href="<c:out value="${category.id}"/>" class="btn-floating waves-effect waves-light green tooltipped" data-position="left" data-delay="50" data-tooltip="edit"  id="edit" ><i class="material-icons small">edit</i></a>
+                            </td>
                         </tr>
                     </c:forEach>
                 </tbody>
