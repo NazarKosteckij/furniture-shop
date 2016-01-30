@@ -15,12 +15,12 @@
          <main>
          <div class="container">
              <% if (pageContext.findAttribute("product")!=null) { %>
-
-                <p class="  ">
-                    <div class="row">
-                        <img class="materialboxed col s8 m6 offset-s2 offset-m3" src="/img/${product.image.uri}">
+             <p/>
+                <div class="row">
+                    <div class="col s8 m6 offset-s2 offset-m3">
+                        <img class="materialboxed col s12" src="/img/${product.image.uri}">
                     </div>
-                </p>
+                </div>
              <% } %>
              <div class="row">
                  <div class="input-field">

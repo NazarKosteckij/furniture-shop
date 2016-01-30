@@ -3,13 +3,13 @@ $(document).ready(function(){
 });
 
 (function() {
-    var app = angular.module('catalog', []);
+    var app = angular.module('catalog',  ['ngRoute']);
 
-    app.controller('CatalogController', function($http, $scope){
+    app.controller('CatalogController', function($http, $scope, $route, $location){
         this.categories = null;
-        this.categoryId = 0;
+        this.categoryId = $location.search().id;
         that = this;
-
+        console.log(this.categoryId);
         this.isCurrentCategory = function(id){
             return this.categoryId === id;
         }
@@ -21,13 +21,14 @@ $(document).ready(function(){
                     this.products = category.products;
                 }
             }
+            Materialize.fadeInImage('#staggered');
 
             console.log("set category id " + id);
         };
 
         $http.get("/api/categories/").then(function(response) {
             that.categories = response.data;
-            that.categoryId = that.categories[0].id;
+            that.categoryId = that.categoryId | that.categories[0].id;
         });
 
     });
