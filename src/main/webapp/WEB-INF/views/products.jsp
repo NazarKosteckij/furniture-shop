@@ -26,7 +26,7 @@
             </thead>
             <tbody>
                 <c:forEach var="product" items="${products}">
-                    <tr class="row hoverable">
+                    <tr class="row" style="height: 60px;">
                         <td class="col s1"><c:out value="${product.id}"/></td>
                         <td  class="col"><c:out value="${product.name}"/></td>
                         <td  class="col hide-on-small-only">${product.description}</td>
@@ -39,5 +39,7 @@
         </table>
     </div>
 </main>
+
+<c:import url="footer.jsp"/>
 </body>
 </html>

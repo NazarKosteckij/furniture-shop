@@ -12,3 +12,12 @@ nav{
 .tabs .tab a:hover {
     color: green;
 }
+
+main .container {
+    padding-top: 10px;
+    min-height: 100%;
+}
+
+.dropdown-content li > a, .dropdown-content li > span {
+    color: orange;
+}

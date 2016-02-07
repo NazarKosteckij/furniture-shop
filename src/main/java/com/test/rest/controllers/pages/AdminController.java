@@ -26,10 +26,15 @@ import java.io.IOException;
  * Created by Nazar on 16.01.2016.
  */
 @Controller
-@RequestMapping(value = "admin")
+@RequestMapping(value = "")
 public class AdminController {
-    @RequestMapping("")
+    @RequestMapping("/admin")
     public String get(){
         return "admin";
+    }
+
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public String login() {
+        return "login";
     }
 }

@@ -24,5 +24,7 @@
                 <jsp:include page="adminButtons.jsp"/>
             </div>
         </main>
+
+        <c:import url="footer.jsp"/>
 </body>
 </html>

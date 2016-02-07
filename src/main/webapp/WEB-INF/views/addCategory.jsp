@@ -24,7 +24,7 @@
                             </div>
                         </div>
                         <div class="input-field">
-                            <input class="btn" type="submit" value="<%
+                            <input class="btn btn-large green" type="submit" value="<%
                             if (pageContext.findAttribute("category")==null){ %>Додати<% } else { %>Редагувати <%}%>"/>
                         </div>
                     </form>
@@ -32,5 +32,7 @@
             </div>
         </div>
     </main>
+
+    <c:import url="footer.jsp"/>
 </body>
 </html>

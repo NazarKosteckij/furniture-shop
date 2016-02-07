@@ -14,16 +14,22 @@
          <jsp:include page="adminNavigationBar.jsp" />
          <main>
          <div class="container">
-             <% if (pageContext.findAttribute("product")!=null) { %>
-             <p/>
-                <div class="row">
-                    <div class="col s8 m6 offset-s2 offset-m3">
-                        <img class="materialboxed col s12" src="/img/${product.image.uri}">
-                    </div>
-                </div>
-             <% } %>
+
              <div class="row">
-                 <div class="input-field">
+                 <p/>
+                 <% boolean isEditing = pageContext.findAttribute("product")!=null;
+                     if (isEditing) { %>
+                 <div class="col s12 m4">
+                     <div class="materialbox">
+                         <div class="row">
+                             <div class="col s8 m6 offset-s2 offset-m3">
+                                 <img class="materialboxed responsive-img" src="/img/${product.image.uri}">
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+                 <% } %>
+                 <div class="input-field <% if (isEditing) { %> col s12 m8 <% } %>">
                      <form method="post" enctype="multipart/form-data">
                          <div class="row">
                              <div class="input-field col s12 m6">
@@ -39,29 +45,7 @@
                                  </select>
                              </div>
                          </div>
-                         <div class="row">
 
-                             <div class="file-field input-field col s12 m6">
-                                 <div class="btn">
-                                     <span>Додати</span>
-                                     <input  accept=".jpg,.bmp" id="main-image" <c:if test="${product == null}">required</c:if>  type="file" name="file" size="20" />
-                                 </div>
-                                 <div class="file-path-wrapper">
-                                     <input class="file-path validate" placeholder="Оберіть головне зображення" type="text">
-                                 </div>
-                             </div>
-                             <div class="col s12 m6">
-                                 <div class="file-field input-field">
-                                     <div class="btn">
-                                         <span>Додаткові зображення</span>
-                                         <input name="files" accept=".jpg,.bmp" type="file" multiple>
-                                     </div>
-                                     <div class="file-path-wrapper">
-                                         <input class="file-path validate" type="text" placeholder="Оберіть ще декілька додаткових зображень">
-                                     </div>
-                                 </div>
-                             </div>
-                         </div>
                          <div class="row">
                              <div class="row">
                                  <div class="input-field col s12">
@@ -71,9 +55,31 @@
                                  </div>
                              </div>
                          </div>
+                         <div class="row">
+                             <div class="file-field input-field col s12  ${product == null ? "m6" : ""}">
+                                 <div class="btn waves-effect orange">
+                                     <span>Додати</span>
+                                     <input  accept=".jpg,.bmp" id="main-image" <c:if test="${product == null}">required</c:if>  type="file" name="file" size="20" />
+                                 </div>
+                                 <div class="file-path-wrapper">
+                                     <input class="file-path validate" placeholder="Оберіть головне зображення" type="text">
+                                 </div>
+                             </div>
+                             <div class="col s12 ${product == null ? "m6" : ""}">
+                                 <div class="file-field input-field">
+                                     <div class="btn waves-effect orange">
+                                         <span>Додаткові зображення</span>
+                                         <input name="files" accept=".jpg,.bmp" type="file" multiple>
+                                     </div>
+                                     <div class="file-path-wrapper">
+                                         <input class="file-path validate" type="text" placeholder="Оберіть ще декілька додаткових зображень">
+                                     </div>
+                                 </div>
+                             </div>
+                         </div>
 
                          <div class="input-field">
-                             <input class="btn" type="submit" value=" ${product == null ? "Додати" : "Редагувати"}"/>
+                             <input class="btn  btn-large green darken-1" type="submit" value=" ${product == null ? "Додати" : "Редагувати"}"/>
                          </div>
                      </form>
                  </div>
@@ -84,6 +90,8 @@
                  </div>
          </div>
     </main>
+
+         <c:import url="footer.jsp"/>
 </body>
 <script>
     $(document).ready(function() {

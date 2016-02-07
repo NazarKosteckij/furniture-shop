@@ -39,15 +39,25 @@
 	<main>
 
 		<div ng-controller="CatalogController as catalog" class="container">
-            <p class="row">
+            <div class="row">
 				<!-- Dropdown Trigger -->
-				<a class="dropdown-button btn right waves-effect" href='#' data-activates='category-dropdown'><i class="material-icons left ">list</i>Категорія</a>
+				<div class="col s12 m7">
+					<h1 class="flow-text">
+						{{catalog.getCurrentCategoryName()}}
+					</h1>
+				</div>
+				<div class="col s12 m5">
+					<h5 class=" ">
+						<a class="dropdown-button btn-large right waves-effect orange darken-2" href='#' data-activates='category-dropdown'><i class="material-icons large left ">list</i>Категорія</a>
 
-				<ul id='category-dropdown' class='dropdown-content' >
-						<li  class="collection-item" ng-repeat="category in catalog.categories" href ng-click="catalog.setCategory(category.id); ">
-							<a href="#?id={{category.id}}">{{category.name}}</a></li>
-				</ul>
-			</p>
+						<ul id='category-dropdown' class='dropdown-content' >
+								<li  class="collection-item" ng-repeat="category in catalog.categories" href ng-click="catalog.setCategory(category.id); ">
+									<a class="dropdown-link" href="#?id={{category.id}}">{{category.name}}</a>
+								</li>
+						</ul>
+					</h5>
+				</div>
+			</div>
 
 			<div class="row">
 				<ul id="staggered">
@@ -59,7 +69,7 @@
 							</div>
 							<div class="card-content">
 								<span class="card-title activator grey-text text-darken-4">{{product.name}}<i class="material-icons right">more_vert</i></span>
-								<p><a href="#">Деталі</a></p>
+								<p><a href="/products/{{product.id}}">Деталі</a></p>
 							</div>
 							<div class="card-reveal">
 								<span class="card-title grey-text text-darken-4">{{product.name}}<i class="material-icons right">close</i></span>
@@ -72,5 +82,6 @@
 			</div>
 		</div>
 	</main>
+	<c:import url="footer.jsp"/>
 </body>
 </html>
