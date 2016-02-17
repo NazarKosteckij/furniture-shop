@@ -23,7 +23,7 @@
                      <div class="materialbox">
                          <div class="row">
                              <div class="col s8 m6 offset-s2 offset-m3">
-                                 <img class="materialboxed responsive-img" src="/img/${product.image.uri}">
+                                 <img class="materialboxed responsive-img" src='<c:url value="/"/>img/${product.image.uri}'>
                              </div>
                          </div>
                      </div>
@@ -37,7 +37,7 @@
                                  <label for="name">Назва</label>
                              </div>
                              <div class="input-field col s12 m6">
-                                 <select name="categoryId" >
+                                 <select required name="categoryId" >
                                      <option value="" disabled selected>Оберіть Категорію</option>
                                      <c:forEach var="category" items="${categories}">
                                          <option <c:if test="${category.id == product.category_id}">selected</c:if> value="<c:out value="${category.id}"/>"><c:out value="${category.name}"/></option>

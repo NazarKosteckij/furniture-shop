@@ -45,7 +45,7 @@
             <div class="row">
                 <div class="center ">
                     <div class="col s12 m3 ">
-                        <img  class="responsive-img materialboxed" alt="${product.image.title}" src="/img/${product.image.uri}">
+                        <img  class="responsive-img materialboxed" alt="${product.image.title}" src='<c:url value="/"/>img/${product.image.uri}'>
                     </div>
                 </div>
                 <div class="col s12 m9">
@@ -57,7 +57,7 @@
             <div class="">
                 <ul class="row">
                     <c:forEach var="image" items="#{images}">
-                        <li class="col s3 m2"><img  class=" responsive-img materialboxed" src="/img/<c:out value="${image.uri}"/>"
+                        <li class="col s3 m2"><img  class=" responsive-img materialboxed" src="<c:url value="/"/>img/<c:out value="${image.uri}"/>"
                                   style="width: 170px;
                                   padding: 10px;"></li>
                     </c:forEach>

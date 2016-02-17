@@ -2,12 +2,14 @@ package com.test.rest.controllers.pages.admin;
 
 import com.test.rest.dao.CategoryDao;
 import com.test.rest.models.Category;
+import com.test.rest.models.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -28,9 +30,8 @@ public class Categories {
     }
 
     @RequestMapping("/categories/add")
-    public ModelAndView addCategory(){
-        ModelAndView modelAndView = new ModelAndView("addCategory");
-        return modelAndView;
+    public String addCategory(){
+        return "addCategory";
     }
 
 
@@ -52,15 +53,27 @@ public class Categories {
         return "redirect:../categories/";
     }
 
+    @RequestMapping(value = "/categories/{id}", method = RequestMethod.DELETE)
+    public @ResponseBody
+    void deleteImage(@PathVariable Integer id){
+
+        Category category = null;
+
+        if (id != null) {
+            category = categoryDao.read(id);
+            if (category != null) {
+                categoryDao.delete(category);
+            }
+        }
+    }
 
     @RequestMapping(value = "/categories/add", method = RequestMethod.POST)
-    public ModelAndView doAddCategory(@RequestParam(value = "name") String name){
+    public String doAddCategory(@RequestParam(value = "name") String name){
         Category category = new Category();
 
         category.setName(name);
         categoryDao.create(category);
 
-        ModelAndView modelAndView = new ModelAndView("addCategory");
-        return modelAndView;
+        return "redirect:/admin/categories/";
     }
 }

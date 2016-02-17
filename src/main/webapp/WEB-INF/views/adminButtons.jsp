@@ -15,6 +15,18 @@
                 <i class="material-icons">assignment</i>
             </a>
         </li>
-        <li><a class="btn-floating yellow darken-1 tooltipped" data-position="left" data-delay="50" data-tooltip="Товар" style="transform: scaleY(0.4) scaleX(0.4) translateY(40px); opacity: 0;" href="<c:url value="/admin/products/add"/>"><i class="material-icons">web</i></a>
+        <li>
+            <a class="btn-floating yellow darken-1 tooltipped" data-position="left" data-delay="50" data-tooltip="Товар" style="transform: scaleY(0.4) scaleX(0.4) translateY(40px); opacity: 0;" href="<c:url value="/admin/products/add"/>"><i class="material-icons">web</i></a>
+        </li>
     </ul>
+</div>
+<div id="confirmation-dialog" class="modal">
+    <div class="modal-content">
+        <h4 id="modal-tittle">Підтвердіть вашу дію</h4>
+        <p id="modal-content"></p>
+    </div>
+    <div class="modal-footer">
+        <a href="#!" id="modal-confirm-action" class=" modal-action modal-close waves-effect waves-green btn-flat ">Так</a>
+        <a href="#!" class="modal-action modal-close waves-effect waves-red btn-flat ">Ні</a>
+    </div>
 </div>

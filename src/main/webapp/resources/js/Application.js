@@ -32,7 +32,7 @@ $(document).ready(function(){
             console.log("set category id " + id);
         };
 
-        $http.get("/api/categories/").then(function(response) {
+        $http.get("./api/categories/").then(function(response) {
             that.categories = response.data;
             that.setCategory(that.categoryId == 0 ? that.categories[0].id : that.categoryId);
         });

@@ -13,9 +13,11 @@
     <link rel="stylesheet" href="<c:url value="/resources/css/styles.css" />">
     <script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
     <script src="<c:url value="/resources/js/materialize.js"/>"></script>
+    <script src="<c:url value="/resources/js/admin.js"/>"></script>
+
     <link href="http://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <title>Admin Panel</title>
+    <title>Панель керування</title>
 </head>
 <body>
     <jsp:include page="adminNavigationBar.jsp" />
@@ -37,8 +39,8 @@
                             <td><c:out value="${category.id}"/></td>
                             <td><c:out value="${category.name}"/></td>
                             <td>${category.products.size()}</td>
-                            <td> <a  class="btn-floating waves-effect waves-light red tooltipped" data-position="left" data-delay="50" data-tooltip="Видалити"  id="delete" ><i class="material-icons small">delete</i></a>
-                                <a href="<c:out value="${category.id}"/>" class="btn-floating waves-effect waves-light green tooltipped" data-position="left" data-delay="50" data-tooltip="edit"  id="edit" ><i class="material-icons small">edit</i></a>
+                            <td> <a  class="btn-floating waves-effect waves-light red tooltipped" data-position="left" data-delay="50" data-tooltip="Видалити"  id="<c:out value="${category.id}"/>" onclick="removeCategory(this)"><i class="material-icons small">delete</i></a>
+                                <a href="<c:out value="${category.id}"/>" class="btn-floating waves-effect waves-light green tooltipped" data-position="left" data-delay="50" data-tooltip="Редагувати"  id="edit" ><i class="material-icons small">edit</i></a>
                             </td>
                         </tr>
                     </c:forEach>

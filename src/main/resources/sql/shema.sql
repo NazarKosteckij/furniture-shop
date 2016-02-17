@@ -1,4 +1,4 @@
-DROP DATABASE furnitureShop;
+DROP DATABASE IF EXISTS furnitureShop;
 CREATE DATABASE furnitureShop;
 USE furnitureShop;
 
