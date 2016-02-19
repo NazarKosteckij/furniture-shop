@@ -38,10 +38,15 @@ public class HomeController {
 	public String home(HttpServletRequest request, HttpServletResponse response, Locale locale, Model model) {
 	 	return "home";
 	}
+
+	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public String contacts(HttpServletRequest request, HttpServletResponse response, Locale locale, Model model) {
+	 	return "contacts";
+	}
+
 	@RequestMapping(value = "/catalog", method = RequestMethod.GET)
 	public String catalog(HttpServletRequest request, HttpServletResponse response, Locale locale, Model model) {
-		return "redirect:/";
-		//return "catalog";
+		return "catalog";
 	}
 
 	@RequestMapping(value = "/products/{id}", method = RequestMethod.GET)
