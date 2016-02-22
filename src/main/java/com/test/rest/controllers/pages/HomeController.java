@@ -39,7 +39,7 @@ public class HomeController {
 	 	return "home";
 	}
 
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	@RequestMapping(value = "/contacts", method = RequestMethod.GET)
 	public String contacts(HttpServletRequest request, HttpServletResponse response, Locale locale, Model model) {
 	 	return "contacts";
 	}
